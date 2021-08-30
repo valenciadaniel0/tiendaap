@@ -4,3 +4,12 @@ development:
   host: localhost
   username: root
   password: root
+
+test:
+  adapter: postgresql
+  database: tiendaap_test
+  pool: 5
+  host: localhost
+  encoding: unicode
+  username: root
+  password: root
