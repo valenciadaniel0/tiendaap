@@ -5,4 +5,8 @@ FactoryBot.define do
     stock { 10 }
     price { 2000 }
   end
+
+  trait :with_product do
+    product { create :product, :with_user }
+  end
 end

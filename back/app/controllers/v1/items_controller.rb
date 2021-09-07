@@ -10,6 +10,16 @@ class V1::ItemsController < ApplicationController
     end
   end
 
+  def update
+    item = Item.find_by(id: params[:id])
+    if item.present?
+      render json: item.as_json, status: :ok if item.update(item_params)
+      render json: { error: 'Could not update the item' }, status: :unprocessable_entity unless item.update(item_params)
+    else
+      render json: { error: "There is no any item with this id: #{params[:id]}" }, status: :unprocessable_entity
+    end
+  end
+
   def find_by_code
     item = Item.find_by_code(params[:code])
     render json: item.as_json if item.present?
