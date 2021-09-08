@@ -3,7 +3,7 @@ require 'rails_helper'
 describe V1::ItemsController, type: :controller do
   let(:user) { create :user }
   let(:product) { create :product, user: user }
-  let!(:category) { create :category, product: product }
+  let(:category) { create :category, product: product }
 
   let(:response_body) { JSON.parse response.body }
 
@@ -28,7 +28,19 @@ describe V1::ItemsController, type: :controller do
         expect(response).to have_http_status(:created)
       end
     end
+
+    context 'when the category already has items and the product is not inventory' do
+      let(:not_inventory_product) { create :product, user: user, inventory: Product::TYPES[:not_inventory] }
+      let(:not_inventory_category) { create :category, product: not_inventory_product }
+      let!(:item) { create :item, category: not_inventory_category }
+
+      it 'returns a 422' do
+        post :create, params: { item: params[not_inventory_category.id] }
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
   end
+
   describe 'Get #find_by_code' do
     context 'when there is an item matching the code' do
       let(:item) { create :item, category: category }
@@ -44,6 +56,7 @@ describe V1::ItemsController, type: :controller do
       end
     end
   end
+
   describe 'PUT #update' do
     let(:catgegory) { create :category, :with_product }
     let(:category2) { create :category, :with_product }

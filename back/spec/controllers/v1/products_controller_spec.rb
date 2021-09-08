@@ -2,20 +2,19 @@ require 'rails_helper'
 
 describe V1::ProductsController, type: :controller do
   let(:user) { create :user }
-
   let(:response_body) { JSON.parse(response.body) }
   let(:response_error) { response_body['error'] }
 
-  describe 'POST create' do
-    before do
-      @request.env['HTTP_AUTHORIZATION'] = "Bearer #{user.authentication_token}"
-    end
+  before do
+    @request.env['HTTP_AUTHORIZATION'] = "Bearer #{user.authentication_token}"
+  end
 
+  describe 'POST create' do
     let(:params) do
       {
-      name: 'Test product',
-      inventory: 1,
-      description: 'Test product description'
+        name: 'Test product',
+        inventory: 1,
+        description: 'Test product description'
       }
     end
 
@@ -27,10 +26,6 @@ describe V1::ProductsController, type: :controller do
     end
   end
   describe 'PUT update' do
-    before do
-      @request.env['HTTP_AUTHORIZATION'] = "Bearer #{user.authentication_token}"
-    end
-
     let!(:product) { create :product, user: user }
 
     let(:params) do
@@ -49,10 +44,6 @@ describe V1::ProductsController, type: :controller do
     end
   end
   describe 'GET show' do
-    before do
-      @request.env['HTTP_AUTHORIZATION'] = "Bearer #{user.authentication_token}"
-    end
-
     context 'when the product exists' do
       let(:product) { create :product, user: user }
       it 'returns the product' do
@@ -82,10 +73,6 @@ describe V1::ProductsController, type: :controller do
       end
     end
     context 'when the user is store' do
-      before do
-        @request.env['HTTP_AUTHORIZATION'] = "Bearer #{user.authentication_token}"
-      end
-
       it 'gets the product linked to the store user' do
         get :index
         expect(response_body.count).to eq(1)

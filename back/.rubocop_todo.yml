@@ -142,6 +142,7 @@ Layout/TrailingWhitespace:
 # IgnoredMethods: refine
 Metrics/BlockLength:
   Max: 38
+  Enabled: false
 
 # Offense count: 1
 # Configuration parameters: IgnoredMethods.
@@ -189,6 +190,10 @@ Style/EmptyMethod:
 Style/ExpandPathArguments:
   Exclude:
     - 'bin/bundle'
+
+
+Metrics/AbcSize:
+  Enabled: false
 
 # Offense count: 85
 # Cop supports --auto-correct.
