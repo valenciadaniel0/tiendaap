@@ -7,6 +7,10 @@ Rails.application.routes.draw do
       end
     end
     resources :products
-    resources :users
+    resources :users do
+      collection do
+        post :login
+      end
+    end
   end
 end
