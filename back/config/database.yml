@@ -2,8 +2,6 @@ development:
   adapter: postgresql
   database: tiendaap
   host: localhost
-  username: postgres
-  password: root
 
 test:
   adapter: postgresql
@@ -11,5 +9,3 @@ test:
   pool: 5
   host: localhost
   encoding: unicode
-  username: postgres
-  password: root
