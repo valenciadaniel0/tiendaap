@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
     if @current_user&.valid_password?(params[:password])
       render json: @current_user, status: :ok
     else
-      error_message = @current_user.present? ? "Incorrect Password" : "There is not a user with this email"
-      render json: { error: error_message}, status: :unauthorized
+      error_message = "Email or password incorrect."
+      render json: { error: error_message }, status: :unauthorized
     end
   end
 

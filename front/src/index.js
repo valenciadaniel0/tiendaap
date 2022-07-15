@@ -10,9 +10,7 @@ const store = createStore(reducers, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <div className="ui container">
-      <App />
-    </div>
+    <App />
   </Provider>,
   document.querySelector("#root")
 );

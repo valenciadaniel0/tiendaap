@@ -31,7 +31,7 @@ class Login extends React.Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <div className="ui container">
         <div className="vertical-space-20"></div>
         <div className="ui two column centered grid">
           <div className="column">
@@ -46,7 +46,7 @@ class Login extends React.Component {
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

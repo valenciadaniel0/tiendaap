@@ -1,8 +1,9 @@
 import React from "react";
+import HomeNav from "./layouts/homeNav";
 
 class Home extends React.Component {
   render() {
-    return <div>home!</div>;
+    return <HomeNav />;
   }
 }
 

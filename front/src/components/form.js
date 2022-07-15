@@ -1,5 +1,7 @@
 import React from "react";
 import Field from "./field";
+import { connect } from "react-redux";
+import ErrorAlert from "./alerts/errorAlert";
 
 class Form extends React.Component {
   sendAction = (event) => {
@@ -22,19 +24,37 @@ class Form extends React.Component {
     });
   }
 
+  renderErrorMessage() {
+    if (this.props.errorResponse) {
+      return (
+        <ErrorAlert
+          header={"Login error"}
+          errorMessage={this.props.errorResponse}
+        />
+      );
+    }
+  }
+
   render() {
     return (
-      <form className="ui form">
-        {this.renderFields()}
-        <button
-          className="ui button"
-          onClick={(event) => this.sendAction(event)}
-        >
-          {this.props.actionButtonText}
-        </button>
-      </form>
+      <React.Fragment>
+        {this.renderErrorMessage()}
+        <form className="ui form">
+          {this.renderFields()}
+          <button
+            className="ui button"
+            onClick={(event) => this.sendAction(event)}
+          >
+            {this.props.actionButtonText}
+          </button>
+        </form>
+      </React.Fragment>
     );
   }
 }
 
-export default Form;
+const mapStateToProps = (state) => {
+  return { errorResponse: state.errorResponse };
+};
+
+export default connect(mapStateToProps, {})(Form);
