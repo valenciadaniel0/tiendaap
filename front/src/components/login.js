@@ -13,6 +13,7 @@ class Login extends React.Component {
     return [
       {
         label: "Email",
+        placeholder: "Email",
         inputType: "text",
         inputName: "email",
         controlFunction: (email) => this.setState({ email }),
@@ -21,6 +22,7 @@ class Login extends React.Component {
       },
       {
         label: "Password",
+        placeholder: "Password",
         inputType: "password",
         inputName: "password",
         controlFunction: (password) => this.setState({ password }),

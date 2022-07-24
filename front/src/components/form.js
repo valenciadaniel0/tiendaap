@@ -12,14 +12,17 @@ class Form extends React.Component {
   renderFields() {
     return this.props.fields.map((field) => {
       return (
-        <Field
-          key={field.key}
-          label={field.label}
-          inputType={field.inputType}
-          inputName={field.inputName}
-          controlFunction={field.controlFunction}
-          currentValue={field.currentValue}
-        />
+        <div className="field" key={`${field.key}-container`}>
+          <label>{field.label}</label>
+          <Field
+            key={field.key}
+            placeholder={field.placeholder}
+            inputType={field.inputType}
+            inputName={field.inputName}
+            controlFunction={field.controlFunction}
+            currentValue={field.currentValue}
+          />
+        </div>
       );
     });
   }

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :items do
       collection do
-        get :find_by_code
+        get '/:code/find_by_code', to: 'items#find_by_code'
       end
     end
     resources :products

@@ -27,8 +27,9 @@ module V1
 
     def find_by_code
       item = Item.find_by_code(params[:code])
+      item = nil if item.present? && item.product&.user&.id != @current_user.id && !@current_user.admin?
       render json: item.as_json if item.present?
-      render json: { error: 'There is no any item with this code' } unless item.present?
+      render json: { error: 'There is no any item with this code' }, status: 404 unless item.present?
     end
 
     private

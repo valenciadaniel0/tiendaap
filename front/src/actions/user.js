@@ -5,7 +5,6 @@ export const login = (email, password) => async (dispatch) => {
     .post("/users/login", { email, password })
     .catch((errorResponse) => {
       error = true;
-      console.log(error);
       dispatch({
         type: "FORM_ERROR",
         payload: errorResponse.response.data.error,

@@ -52,7 +52,35 @@ describe V1::ItemsController, type: :controller do
     context 'when there is no any item matching the code' do
       it 'returns no item found message' do
         get :find_by_code, params: { code: 0 }
+        expect(response).to have_http_status(:not_found)
         expect(JSON.parse(response.body)['error']).to eq('There is no any item with this code')
+      end
+    end
+    context 'when the matching product does not belong to the authenticated user and the user is not an admin' do
+      let(:user1) { create :user }
+      let(:product1) { create :product, user: user1 }
+      let(:category1) { create :category, product: product1 }
+      let(:item) { create :item, category: category1 }
+
+      it 'returns a 404' do
+        get :find_by_code, params: { code: item.code }
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+    context 'when the matching product does not belong to the authenticated user and the user is an admin' do
+      let(:user1) { create :user }
+      let(:admin_user) { create :user, role: 1 }
+      let(:product1) { create :product, user: user1 }
+      let(:category1) { create :category, product: product1 }
+      let(:item) { create :item, category: category1 }
+
+      before do
+        @request.env['HTTP_AUTHORIZATION'] = "Bearer #{admin_user.authentication_token}"
+      end
+
+      it 'returns a 200' do
+        get :find_by_code, params: { code: item.code }
+        expect(response).to have_http_status(:ok)
       end
     end
   end

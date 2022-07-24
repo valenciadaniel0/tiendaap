@@ -12,9 +12,7 @@ module V1
         end
       end
 
-      def show
-        render json: @current_user.as_json(only: %i[name email username authentication_token picture role])
-      end
+      def show; end
 
       def update; end
 

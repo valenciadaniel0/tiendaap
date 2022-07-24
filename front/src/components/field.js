@@ -6,16 +6,13 @@ class Field extends React.Component {
   };
   render() {
     return (
-      <div className="field">
-        <label>{this.props.label}</label>
-        <input
-          type={this.props.inputType}
-          name={this.props.inputName}
-          placeholder={this.props.label}
-          value={this.props.currentValue}
-          onChange={this.triggerControlFunction}
-        />
-      </div>
+      <input
+        type={this.props.inputType}
+        name={this.props.inputName}
+        placeholder={this.props.placeholder}
+        value={this.props.currentValue}
+        onChange={this.triggerControlFunction}
+      />
     );
   }
 }
